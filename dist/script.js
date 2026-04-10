@@ -5,3 +5,5 @@ async function init() {
     renderListOfAnimals(animals);
 }
 init();
+
+const img = document.createElement("img");
