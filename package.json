@@ -13,8 +13,5 @@
   "type": "commonjs",
   "devDependencies": {
     "typescript": "^5.9.3"
-  },
-  "dependencies": {
-    "node-fetch": "^3.3.2"
   }
 }

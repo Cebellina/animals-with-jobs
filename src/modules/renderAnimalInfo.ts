@@ -1,14 +1,6 @@
-// Obs: Skills: 12 av 15 djur. Saknar skills: Nemo (fish), Molly (mole) och Penny (pinguin).
-// Obs: Oscar (owl), Polly (parrot), Penny (penguin) och Molly (mole) har 2 strängar med employments varav en av dem har end date. Det betyder att de ej jobbar.
-// Alla andra djur har 1 employment som inte har end date, vilket betyder att de jobbar.
-// Alla djurs namn börjar på samma bokstav som deras djurtyp, förutom Luna (cat), Daisy (cow) och Nemo (fish).
-
-
 //Titta i index.html och hitta den div där info om varje djur ska skrivas ut.
 //Typa upp funktionens parameter
 
-export default function renderAnimalInfo(animal) {
- 
   //=====================================================//
   //Rendera ut bilden på djuret
   //Skriv ut djurets namn och typ av djur. Följ det här formatet: "Gina the Giraffe"
@@ -38,4 +30,50 @@ export default function renderAnimalInfo(animal) {
   
   //Bonus om du skriver ut rubriken "Skills" med CSS.
   //=====================================================//
+
+
+import type { IAnimal } from "./IAnimal";
+
+export default function renderAnimalInfo(animal: IAnimal) {
+  const infoContainer = document.querySelector(".animal-info");
+  if (!infoContainer) return;
+
+  // clear previous info
+  infoContainer.innerHTML = "";
+
+  // display image
+  const imageElement = document.createElement("img");
+  imageElement.src = `/images/${animal.imageUrl}`;
+  imageElement.alt = `${animal.name} the ${animal.kindOfAnimal}`;
+
+  // display name and kind of animal
+  const nameElement = document.createElement("h2");
+  nameElement.textContent = `${animal.name} the ${animal.kindOfAnimal}`;
+
+  // display job and employment status
+  const jobElement = document.createElement("p");
+  const isEmployed = !animal.employmentEndDate || new Date(animal.employmentEndDate) > new Date();
+  jobElement.textContent = `${animal.job} - Currently ${isEmployed ? "employed" : "not employed"}`;
+
+  // display age
+  const ageElement = document.createElement("p");
+  const birthYear = parseInt(animal.birthYear);
+  const currentYear = new Date().getFullYear();
+  const age = currentYear - birthYear;
+  ageElement.textContent = `Age: ${age} years old`;
+
+  // display skills
+  const skillsElement = document.createElement("p");
+  if (Array.isArray(animal.skills)) {
+    skillsElement.textContent = `Skills: ${animal.skills.join(", ")}`;
+  } else if (animal.skills) {
+    skillsElement.textContent = `Skills: ${animal.skills}`;
+  }
+
+  // append all elements to the info container
+  infoContainer.appendChild(imageElement);
+  infoContainer.appendChild(nameElement);
+  infoContainer.appendChild(jobElement);
+  infoContainer.appendChild(ageElement);
+  infoContainer.appendChild(skillsElement);
 }
