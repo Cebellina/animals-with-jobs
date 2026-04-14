@@ -1,5 +1,5 @@
-//Titta i index.html och hitta den div där info om varje djur ska skrivas ut.
-//Typa upp funktionens parameter
+  //Titta i index.html och hitta den div där info om varje djur ska skrivas ut.
+  //Typa upp funktionens parameter
 
   //=====================================================//
   //Rendera ut bilden på djuret
@@ -31,20 +31,17 @@
   //Bonus om du skriver ut rubriken "Skills" med CSS.
   //=====================================================//
 
-
-import type { IAnimal } from "./IAnimal";
-
-export default function renderAnimalInfo(animal: IAnimal) {
-  const infoContainer = document.querySelector(".animal-info");
-  if (!infoContainer) return;
-
   // clear previous info
-  infoContainer.innerHTML = "";
 
   // display image
+
+  import { IAnimal } from "./IAnimal";
+  export function renderAnimalInfo(animal: IAnimal, infoContainer: HTMLElement) {
+
   const imageElement = document.createElement("img");
-  imageElement.src = `/images/${animal.imageUrl}`;
+  imageElement.src = `./images/${animal.imageUrl}`;
   imageElement.alt = `${animal.name} the ${animal.kindOfAnimal}`;
+  infoContainer.appendChild(imageElement);
 
   // display name and kind of animal
   const nameElement = document.createElement("h2");
